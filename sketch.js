@@ -3,8 +3,9 @@ var img
 var fft
 var particles = []
 
-///////////////////////////////////////////////
-///// FUNCITON PRELOAD CARGA DE LA MUSICA /////
+///////////////////////////////////////////////////////////
+///// FUNCTION PRELOAD CARGA DE LA MUSICA Y LA IMAGEN /////
+///////////////////////////////////////////////////////////
 function preload() {
   song = loadSound('flowers.mp3');
   img = loadImage('flores.jpg')
@@ -22,6 +23,7 @@ function setup() {
 }
 /////////////////////////////////////////////////////////////
 ////////// FUNCION DE CLICK PARA REPRODUCIR//////////////////
+/////////////////////////////////////////////////////////////
 
 function mouseClicked() {
   if (song.isPlaying()) {
@@ -35,6 +37,7 @@ function mouseClicked() {
 
 ///////////////////////////////////
 ////////// FUNCTION DRAW //////////
+///////////////////////////////////
 function draw() {
   background(0);
   stroke(255, 204, 0);
@@ -50,17 +53,23 @@ function draw() {
     rotate(random(-0.5, 0.5))
   }
 
+  ///////////Imagen////////////////
   image(img, 0, 0, width.height)
   pop()
+  /////////////////////////////////
 
   var wave = fft.waveform();
 
+  ////////////// VARIABLE DE DUPICADO DE CIRCULO /////////////
   for (var t = -1; t <= 1; t += 2) {
+    /////////////////////////////////////////////////////////////
+
     beginShape();
 
-    for (var i = 0; i <= 180; i++) {
-      var index = floor(map(i, 0, 180, 0, wave.length - 1));
+    for (var i = 0; i <= 180; i += 1) {
+      var index = floor(map(i, 0, 180, 0, wave.length + - 1));
 
+      //var r = (70 * abs(sin(i * 5)) + 225)
       var r = map(wave[index], -1, 1, 150, 350);
 
       var x = r * sin(i) * t
@@ -88,7 +97,6 @@ function draw() {
   }
 
 }
-
 
 /////////////////////////////////////////////////
 ////// CLASE PARA LAS PARTICULAS DEL FONDO //////
